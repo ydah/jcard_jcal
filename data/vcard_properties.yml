@@ -1,0 +1,42 @@
+# Property defaults and value shapes; cardinality is separate from multiple values on one line.
+source: {type: uri, types: [uri], multiple: false, structured: false, source: 'RFC6350 6.1.3'}
+kind: {type: text, types: [text], multiple: false, structured: false, source: 'RFC6350 6.1.4'}
+xml: {type: text, types: [text], multiple: false, structured: false, source: 'RFC6350 6.1.5'}
+fn: {type: text, types: [text], multiple: false, structured: false, source: 'RFC6350 6.2.1'}
+n: {type: text, types: [text], multiple: false, structured: true, source: 'RFC6350 6.2.2', component_multiple: true, components: [5, 7], extension_source: 'RFC9554 2.2'}
+nickname: {type: text, types: [text], multiple: true, structured: false, source: 'RFC6350 6.2.3'}
+photo: {type: uri, types: [uri], multiple: false, structured: false, source: 'RFC6350 6.2.4'}
+bday: {type: date-and-or-time, types: [date-and-or-time, date, time, date-time, text], multiple: false, structured: false, source: 'RFC6350 6.2.5', conversion_source: 'RFC7095 3.5.3'}
+anniversary: {type: date-and-or-time, types: [date-and-or-time, date, time, date-time, text], multiple: false, structured: false, source: 'RFC6350 6.2.6', conversion_source: 'RFC7095 3.5.5'}
+gender: {type: text, types: [text], multiple: false, structured: true, source: 'RFC6350 6.2.7', components: [1, 2]}
+adr: {type: text, types: [text], multiple: false, structured: true, source: 'RFC6350 6.3.1', component_multiple: true, components: [7, 18], extension_source: 'RFC9554 2.1'}
+tel: {type: text, types: [text, uri], multiple: false, structured: false, source: 'RFC6350 6.4.1'}
+email: {type: text, types: [text], multiple: false, structured: false, source: 'RFC6350 6.4.2'}
+impp: {type: uri, types: [uri], multiple: false, structured: false, source: 'RFC6350 6.4.3'}
+lang: {type: language-tag, types: [language-tag], multiple: false, structured: false, source: 'RFC6350 6.4.4'}
+tz: {type: text, types: [text, uri, utc-offset], multiple: false, structured: false, source: 'RFC6350 6.5.1'}
+geo: {type: uri, types: [uri], multiple: false, structured: false, source: 'RFC6350 6.5.2'}
+title: {type: text, types: [text], multiple: false, structured: false, source: 'RFC6350 6.6.1'}
+role: {type: text, types: [text], multiple: false, structured: false, source: 'RFC6350 6.6.2'}
+logo: {type: uri, types: [uri], multiple: false, structured: false, source: 'RFC6350 6.6.3'}
+org: {type: text, types: [text], multiple: false, structured: true, source: 'RFC6350 6.6.4'}
+member: {type: uri, types: [uri], multiple: false, structured: false, source: 'RFC6350 6.6.5'}
+related: {type: uri, types: [uri, text], multiple: false, structured: false, source: 'RFC6350 6.6.6'}
+categories: {type: text, types: [text], multiple: true, structured: false, source: 'RFC6350 6.7.1'}
+note: {type: text, types: [text], multiple: false, structured: false, source: 'RFC6350 6.7.2'}
+prodid: {type: text, types: [text], multiple: false, structured: false, source: 'RFC6350 6.7.3'}
+rev: {type: timestamp, types: [timestamp], multiple: false, structured: false, source: 'RFC6350 6.7.4'}
+sound: {type: uri, types: [uri], multiple: false, structured: false, source: 'RFC6350 6.7.5'}
+uid: {type: uri, types: [uri, text], multiple: false, structured: false, source: 'RFC6350 6.7.6'}
+clientpidmap: {type: text, types: [text], multiple: false, structured: true, source: 'RFC6350 6.7.7', components: [2]}
+url: {type: uri, types: [uri], multiple: false, structured: false, source: 'RFC6350 6.7.8'}
+version: {type: text, types: [text], multiple: false, structured: false, source: 'RFC6350 6.7.9'}
+key: {type: uri, types: [uri, text], multiple: false, structured: false, source: 'RFC6350 6.8.1'}
+fburl: {type: uri, types: [uri], multiple: false, structured: false, source: 'RFC6350 6.9.1'}
+caladruri: {type: uri, types: [uri], multiple: false, structured: false, source: 'RFC6350 6.9.2'}
+caluri: {type: uri, types: [uri], multiple: false, structured: false, source: 'RFC6350 6.9.3'}
+created: {type: timestamp, types: [timestamp], multiple: false, structured: false, source: 'RFC9554 3.1'}
+gramgender: {type: text, types: [text], multiple: false, structured: false, source: 'RFC9554 3.2'}
+language: {type: language-tag, types: [language-tag], multiple: false, structured: false, source: 'RFC9554 3.3'}
+pronouns: {type: text, types: [text], multiple: false, structured: false, source: 'RFC9554 3.4'}
+socialprofile: {type: uri, types: [uri, text], multiple: false, structured: false, source: 'RFC9554 3.5'}

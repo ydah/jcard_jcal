@@ -1,0 +1,123 @@
+module JcardJcal
+  VERSION: String
+
+  type json_value = nil | bool | Integer | Float | String | Array[json_value] | Hash[String, json_value]
+  type parameters = Hash[String, String | Array[String]]
+  type property_data = Array[json_value]
+  type card_data = [String, Array[property_data]]
+  type calendar_data = [String, Array[property_data], Array[calendar_data]]
+  type component_data = card_data | calendar_data
+  type metadata = Hash[String, json_value]
+
+  class Error < StandardError
+    attr_reader line_number: Integer?
+    attr_reader pointer: String?
+    def initialize: (String message, ?line_number: Integer?, ?pointer: String?) -> void
+  end
+
+  class ParseError < Error
+  end
+
+  class ValidationError < Error
+  end
+
+  class ValueError < ValidationError
+  end
+
+  class LimitError < ValueError
+  end
+
+  class ConversionError < Error
+  end
+
+  class Registry
+    UNKNOWN: metadata
+    def initialize: (?Hash[String, metadata] entries) -> void
+    def initialize_copy: (Registry other) -> void
+    def []: (String | Symbol name) -> metadata
+    def register: (String | Symbol name, type: String | Symbol, ?types: Array[String | Symbol]?,
+                   ?multiple: bool, ?structured: bool, **json_value) -> self
+    def freeze: () -> self
+    def self.load: (String filename) -> instance
+  end
+
+  class Property
+    attr_reader warnings: Array[Error]
+    def initialize: (property_data data, ?registry: Registry?, ?strict: bool, ?pointer: String,
+                     ?line_number: Integer?, ?max_binary_size: Integer) -> void
+    def name: () -> String
+    def params: () -> parameters
+    def type: () -> String
+    def values: () -> Array[json_value]
+    def group: () -> String?
+    def to_a: () -> property_data
+    def validate!: () -> self
+  end
+
+  class Component
+    attr_reader name: String
+    attr_reader warnings: Array[Error]
+    def initialize: (String name, Array[Property] properties, ?Array[Component] components,
+                     ?warnings: Array[Error], ?registry: Registry?, ?max_binary_size: Integer) -> void
+    def properties: (?String? name) -> Array[Property]
+    def property: (String name) -> Property?
+    def components: (?String? name) -> Array[Component]
+    def to_a: () -> component_data
+    def to_json: (*untyped args) -> String
+    def validate!: () -> self
+  end
+end
+
+module JCardJCal = JcardJcal
+
+module JCard
+  class Registry < JcardJcal::Registry
+    DEFAULT: Registry
+    def self.default: () -> Registry
+  end
+
+  class Property < JcardJcal::Property
+  end
+
+  class Card < JcardJcal::Component
+    def properties: (?String? name) -> Array[Property]
+    def property: (String name) -> Property?
+    def to_a: () -> JcardJcal::card_data
+    def to_vcard: () -> String
+  end
+
+  def self.parse: (String source, ?registry: JcardJcal::Registry?, ?strict: bool,
+                   ?max_depth: Integer, ?max_properties: Integer, ?max_line_length: Integer,
+                   ?max_binary_size: Integer, ?max_input_size: Integer) -> Card
+  def self.from_vcard: (String source, ?registry: JcardJcal::Registry?, ?strict: bool,
+                        ?max_depth: Integer, ?max_properties: Integer, ?max_line_length: Integer,
+                        ?max_binary_size: Integer, ?max_input_size: Integer) -> Array[Card]
+end
+
+module JCal
+  class Registry < JcardJcal::Registry
+    DEFAULT: Registry
+    def self.default: () -> Registry
+  end
+
+  class Property < JcardJcal::Property
+  end
+
+  class Component < JcardJcal::Component
+    def properties: (?String? name) -> Array[Property]
+    def property: (String name) -> Property?
+    def components: (?String? name) -> Array[Component]
+    def to_a: () -> JcardJcal::calendar_data
+    def to_ical: () -> String
+  end
+
+  class Calendar < Component
+  end
+
+  def self.parse: (String source, ?registry: JcardJcal::Registry?, ?strict: bool,
+                   ?max_depth: Integer, ?max_properties: Integer, ?max_line_length: Integer,
+                   ?max_binary_size: Integer, ?max_input_size: Integer) -> Calendar
+  def self.from_ical: (String source, ?registry: JcardJcal::Registry?, ?strict: bool,
+                      ?max_depth: Integer, ?max_properties: Integer, ?max_line_length: Integer,
+                      ?max_binary_size: Integer, ?max_input_size: Integer) -> Calendar
+end

@@ -1,0 +1,20 @@
+AllCops:
+  NewCops: enable
+  TargetRubyVersion: 3.3
+  Exclude:
+    - vendor/**/*
+    - tmp/**/*
+    - node_modules/**/*
+    - bin/*
+
+# RFC value tables and conversion rules are intentionally kept together.
+Metrics:
+  Enabled: false
+Layout/LineLength:
+  Max: 160
+Style/Documentation:
+  Enabled: false
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes

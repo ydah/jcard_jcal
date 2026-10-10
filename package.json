@@ -1,0 +1,8 @@
+{
+  "name": "jcard-jcal-interop",
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "ical.js": "2.2.1"
+  }
+}
