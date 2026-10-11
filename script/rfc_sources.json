@@ -1,0 +1,29 @@
+{
+  "sources": {
+    "5545": {
+      "url": "https://www.rfc-editor.org/rfc/rfc5545.txt",
+      "sha256": "c256f809479d98aa23d71bbd1658b3800ea9f13f41ca56e59c8d2de1b31cbfcb"
+    },
+    "6350": {
+      "url": "https://www.rfc-editor.org/rfc/rfc6350.txt",
+      "sha256": "763c63b28fb9050111ee4878ea605e9e61ba2cb9f3c316bbbba936eda0dd1980"
+    },
+    "6868": {
+      "url": "https://www.rfc-editor.org/rfc/rfc6868.txt",
+      "sha256": "f103a889a51b4a629b86a2c3369f16e4c858382899edfc80aeb8502421408e7c"
+    },
+    "7095": {
+      "url": "https://www.rfc-editor.org/rfc/rfc7095.txt",
+      "sha256": "4aa8dc8a1673edb4104fae4a71f3721e73e15defd1dec7b79d9ea0067c22bfd2"
+    },
+    "7265": {
+      "url": "https://www.rfc-editor.org/rfc/rfc7265.txt",
+      "sha256": "e75afb119160ae2ce4cbd3d1cbbd36eb4f482ab4c358a800d5ab6693b65a03ac"
+    },
+    "7529": {
+      "url": "https://www.rfc-editor.org/rfc/rfc7529.txt",
+      "sha256": "cbb09fa4940a985336f1de808780b0c0ca34724caad5430b2f73feab1678c58a"
+    }
+  },
+  "fixtures_sha256": "5a256c4fb7d16d1c6864a9d50d3aae9ed327048af40f55e95a808a1d096e3ae4"
+}
