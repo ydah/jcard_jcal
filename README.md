@@ -1,13 +1,45 @@
-# jcard_jcal
+<h1 align="center">jcard_jcal</h1>
+
+<p align="center">vCard and iCalendar, in text and JSON.</p>
+
+<p align="center">
+  <a href="https://rubygems.org/gems/jcard_jcal"><img src="https://img.shields.io/gem/v/jcard_jcal" alt="Gem version"></a>
+  <a href="https://github.com/ydah/jcard_jcal/actions/workflows/main.yml"><img src="https://github.com/ydah/jcard_jcal/actions/workflows/main.yml/badge.svg?branch=main" alt="CI"></a>
+  <a href="https://www.ruby-lang.org/"><img src="https://img.shields.io/badge/Ruby-%3E%3D%203.3-CC342D?logo=ruby&amp;logoColor=white" alt="Ruby 3.3 or later"></a>
+  <a href="LICENSE.txt"><img src="https://img.shields.io/badge/license-MIT-blue" alt="MIT License"></a>
+</p>
+
+<p align="center">
+  <a href="#installation">Installation</a> &middot;
+  <a href="#quick-start">Quick start</a> &middot;
+  <a href="#supported-formats">Supported formats</a> &middot;
+  <a href="#development">Development</a> &middot;
+  <a href="#license">License</a>
+</p>
 
 Convert vCard 4.0 and iCalendar text to and from their JSON representations,
 [jCard (RFC 7095)](https://www.rfc-editor.org/rfc/rfc7095) and
 [jCal (RFC 7265)](https://www.rfc-editor.org/rfc/rfc7265).
-Requires Ruby 3.3 or later and json 2.19.4 or later (including json 3.x).
 
-```sh
-gem install jcard_jcal
+## Features
+
+- Convert contact cards and nested calendar components in both directions.
+- Preserve unknown properties and extend property registries for your application.
+- Handle parameter escaping, UTF-8 line folding, and bounded validation.
+
+## Installation
+
+Add the gem to your Gemfile:
+
+```ruby
+gem "jcard_jcal"
 ```
+
+Then run `bundle install`.
+
+Requires Ruby 3.3 or later and `json` 2.19.4 or later, below version 4. CI tests CRuby, JRuby, and TruffleRuby.
+
+## Quick start
 
 ```ruby
 require "jcard_jcal" # or require "jcard" / require "jcal"
@@ -17,7 +49,18 @@ card.properties("fn").first.values # => ["Alice"]
 card.to_json                       # => '["vcard",[["version",{},"text","4.0"],["fn",{},"text","Alice"]]]'
 card.to_vcard                      # CRLF line endings, UTF-8 safe folding
 
-calendar = JCal.from_ical(File.read("calendar.ics"))
+calendar = JCal.from_ical(<<~ICAL)
+  BEGIN:VCALENDAR
+  VERSION:2.0
+  PRODID:-//Example//Calendar//EN
+  BEGIN:VEVENT
+  UID:review@example.test
+  DTSTAMP:20261001T090000Z
+  DTSTART:20261012T010000Z
+  SUMMARY:Weekly review
+  END:VEVENT
+  END:VCALENDAR
+ICAL
 calendar.components("vevent").each do |event|
   puts event.property("dtstart")&.values
 end
@@ -123,6 +166,10 @@ Documentation-only and internal maintenance changes do not need a release.
 Before the first tag, configure a RubyGems trusted publisher for gem `jcard_jcal`,
 owner `ydah`, repository `jcard_jcal`, workflow `release.yml`, and environment
 `release`.
+
+## Contributing
+
+Bug reports and pull requests are welcome on [GitHub](https://github.com/ydah/jcard_jcal/issues). See [Development](#development) for the checks to run before submitting a change. Report security vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
 
 ## License
 
