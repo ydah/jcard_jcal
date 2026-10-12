@@ -22,12 +22,6 @@ Convert vCard 4.0 and iCalendar text to and from their JSON representations,
 [jCard (RFC 7095)](https://www.rfc-editor.org/rfc/rfc7095) and
 [jCal (RFC 7265)](https://www.rfc-editor.org/rfc/rfc7265).
 
-## Features
-
-- Convert contact cards and nested calendar components in both directions.
-- Preserve unknown properties and extend property registries for your application.
-- Handle parameter escaping, UTF-8 line folding, and bounded validation.
-
 ## Installation
 
 Add the gem to your Gemfile:
@@ -38,7 +32,7 @@ gem "jcard_jcal"
 
 Then run `bundle install`.
 
-Requires Ruby 3.3 or later and `json` 2.19.4 or later, below version 4. CI tests CRuby, JRuby, and TruffleRuby.
+Requires Ruby 3.3 or later and `json` 2.19.4–3.x. Supports CRuby, JRuby, and TruffleRuby.
 
 ## Quick start
 
@@ -97,7 +91,7 @@ RFC 7095's truncation rule for fractional JSON numbers.
 Parsing is strict by default. Syntax failures raise `JCardJCal::ParseError`;
 property violations raise `ValidationError` or its subclass `ValueError`.
 Errors expose `line_number` for text input or `pointer` for JSON input.
-`JcardJcal` remains an alias for compatibility with the generated gem namespace.
+`JcardJcal` and `JCardJCal` refer to the same module.
 
 ```ruby
 card = JCard.from_vcard(text, strict: false).first
@@ -151,22 +145,10 @@ COVERAGE=1 bundle exec rake test
 bundle exec rbs -I sig validate
 ```
 
-The first test run needs `curl` and HTTPS access to RFC Editor to prepare fixtures
-under ignored `tmp/rfc/`; later runs reuse verified source downloads. Before
-running RSpec directly, run `bundle exec rake fixtures`. See
-[conformance maintenance](docs/conformance.md) for fixture updates, property
-tables, and the implementation/dependency policy.
-
-## Releases
-
-Update `lib/jcard_jcal/version.rb` and add a user-facing entry to `CHANGELOG.md`,
-then push the matching `vVERSION` tag after main's checks pass. The tag workflow
-tests, builds, publishes to RubyGems, and creates a GitHub release from that entry.
-Documentation-only and internal maintenance changes do not need a release.
-
-Before the first tag, configure a RubyGems trusted publisher for gem `jcard_jcal`,
-owner `ydah`, repository `jcard_jcal`, workflow `release.yml`, and environment
-`release`.
+The first test run requires `curl` and HTTPS access to RFC Editor; downloaded
+fixtures are cached under `tmp/rfc/`. Run `bundle exec rake fixtures` before
+running RSpec directly. See [conformance maintenance](docs/conformance.md) for
+fixture updates and property tables.
 
 ## Contributing
 
@@ -174,8 +156,4 @@ Bug reports and pull requests are welcome on [GitHub](https://github.com/ydah/jc
 
 ## License
 
-Additional dependencies must offer MIT terms; Ruby and its standard libraries are the explicit exception. The development suite does not install external comparison implementations.
-
-MIT; see [LICENSE.txt](LICENSE.txt). Downloaded RFC documents and generated test
-fixtures are excluded from Git and the gem and retain their own
-[license notices](docs/conformance.md#rfc-examples).
+Released under the [MIT License](LICENSE.txt).
